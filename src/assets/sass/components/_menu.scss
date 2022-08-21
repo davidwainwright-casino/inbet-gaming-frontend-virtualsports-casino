@@ -1,0 +1,140 @@
+// Область с кнопками для выбора игр
+
+@mixin stack($height, $rows) {
+  height: $height * $rows + ($rows - 1);
+
+  &__item {
+    line-height: $height;
+    min-width: calc(#{percentage($rows / 12)} + 1px);
+  }
+}
+
+.menu {
+  background-color: $blue-grey;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  flex-wrap: wrap;
+  font-size: rem(16px);
+  color: $menu-color;
+  user-select: none;
+  overflow: hidden;
+  @include stack(70px, 2);
+
+  &__item {
+    border: 1px solid $separator-color;
+    text-align: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-top: -1px;
+    margin-left: -1px;
+    cursor: pointer;
+    position: relative;
+
+    &--selected,
+    &:hover {
+      background: $menu-hover-bg;
+      color: $menu-hover-color;
+    }
+
+    &:before {
+      font-size: rem(16px);
+      margin-right: 10px;
+    }
+    // Название игры
+    &-text {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      // Время текущего состояния игры
+      &-status {
+        position: absolute;
+        font-size: rem(14px);
+        bottom: rem(10px);
+        left: 0px;
+        line-height: 1;
+        color: $menu-color;
+        white-space: nowrap;
+      }
+
+      @include size768 {
+        position: initial;
+
+        &-status {
+          width: 100%;
+          bottom: rem(7px);
+        }
+      }
+    }
+
+    &--back {
+      width: 20%;
+    }
+  }
+  // Визуальный элемент, в виде окружности для отображения состояния игры
+  &__item-status {
+    display: block;
+    background: transparent;
+    float: right;
+    width: rem(10px);
+    height: rem(10px);
+    margin-left: rem(10px);
+    border-radius: 100%;
+
+    &_open {
+      background: $bet-ready;
+    }
+
+    &_started {
+      background: $game-status-started-badge-bg;
+    }
+
+    &_finished {
+      background: $game-status-finished-badge-bg;
+    }
+
+    &_closed {
+      background: $game-status-closed-badge-bg;
+    }
+  }
+
+  @include size1200 {
+    font-size: rem(13px);
+    @include stack(70px, 2);
+  }
+
+  @include size1024 {
+    font-size: rem(11px);
+    @include stack(70px, 2);
+  }
+
+  @include size768 {
+    font-size: rem(14px);
+    @include stack(55px, 3);
+
+    &__item {
+      &:before {
+        margin-right: 3px;
+      }
+    }
+  }
+
+  @include size320 {
+    &__item {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      line-height: 1;
+      padding: 12px 0;
+
+      &:before {
+        padding-bottom: 7px;
+        margin-right: 0;
+      }
+    }
+  }
+}

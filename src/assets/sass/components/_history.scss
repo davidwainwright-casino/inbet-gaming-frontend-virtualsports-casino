@@ -1,0 +1,164 @@
+// История для скачек
+
+.history {
+  display: flex;
+  flex-direction: column;
+
+  &__panel {
+    &-body {
+      padding: 0;
+    }
+  }
+
+  &__header {
+    display: inline-flex;
+    flex-direction: row;
+    border-bottom: 1px solid $light-blue;
+    padding-bottom: rem(6px);
+
+    margin: rem(28px);
+
+    @include size1200 {
+      margin: rem(20px);
+    }
+
+    margin-bottom: 0 !important;
+  }
+
+  &__header_nums {
+    justify-content: space-between;
+  }
+
+  &__header-title {
+    color: $light-purple;
+    font-size: rem(14px);
+  }
+
+  &__header-title-nums {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__header-title_num {
+    color: $yellow;
+    font-size: rem(14px);
+    width: rem(30px);
+    margin: rem(0 10.4px);
+    text-align: center;
+
+    &:nth-child(2) {
+      color: $light-gray;
+    }
+
+    &:last-child {
+      color: $orange;
+      margin-right: rem(0px);
+    }
+  }
+
+  &__content {
+    display: flex !important;
+    width: auto !important;
+    flex-direction: column;
+    margin-top: rem(5px);
+    outline: none;
+
+    margin: rem(28px);
+
+    @include size1200 {
+      margin: rem(20px);
+    }
+
+    margin-top: 0 !important;
+  }
+
+  &__content-item {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: rem(12px);
+    font-size: rem(16px);
+    @include size320 {
+      font-size: rem(24px);
+    }
+  }
+
+  &__content-results {
+    display: inline-flex;
+    flex-direction: row;
+  }
+
+  &__content-results-item {
+    margin: rem(0 10.4px);
+    font-size: rem(24px);
+    width: rem(30px);
+    height: rem(30px);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: rem(15px) 0;
+  }
+
+  &__controls-item {
+    width: rem(12px);
+    height: rem(12px);
+    border-radius: 50%;
+    background: $blue-title;
+    cursor: pointer;
+    margin: rem(10px 5px);
+    transition: $transition-default;
+    &:hover {
+      background: lighten($blue-title, 15%);
+    }
+
+    &.active {
+      background: $white;
+    }
+  }
+}
+
+// Участник скачек (шар с номером)
+.player {
+  &-1 {
+    background: $player-red;
+  }
+  &-2 {
+    background: $player-white;
+    color: $dark-gray;
+  }
+  &-3 {
+    background: $player-blue;
+  }
+  &-4 {
+    background: $player-black;
+  }
+  &-5 {
+    background: $player-green;
+  }
+  &-6 {
+    background: $player-gradient;
+    background-size: 100% 5px;
+    color: $player-red;
+  }
+  &-7 {
+    background: $player-orange;
+  }
+  &-8 {
+    background: $player-pink;
+  }
+}

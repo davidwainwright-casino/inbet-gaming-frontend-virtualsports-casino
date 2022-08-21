@@ -1,0 +1,54 @@
+// Строка заголовка, содержащая название игры, кнопки управления и балланс
+
+.header {
+  padding: 0 60px;
+
+  @include size1200 {
+    padding: 0 20px;
+  }
+
+  background-color: $mid-grey;
+  float: left;
+  width: 100%;
+  height: rem(75px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  // Название игры
+  &__title {
+    font-size: rem(30px);
+    flex: 1;
+    margin: 0;
+    overflow: hidden;
+    float: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  // Гулбар с кнопками и балансом
+  &__bar {
+    display: flex;
+    align-items: stretch;
+    font-size: rem(24px);
+    color: $menu-color;
+
+    &-text,
+    &-button {
+      padding: rem(12px);
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+
+    &-button {
+      cursor: pointer;
+      line-height: 100%;
+
+      &:hover {
+        color: $menu-hover-color;
+      }
+    }
+  }
+}

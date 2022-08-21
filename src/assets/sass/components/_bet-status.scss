@@ -1,0 +1,276 @@
+// Ставки отображаемые активных ставках и истории ставок
+
+.bet-status {
+  display: flex;
+  $grand: &;
+
+  &_onecolumn {
+    flex-direction: column;
+  }
+
+  &_multicolumn {
+    display: flex;
+    flex-wrap: wrap;
+
+    #{$grand}__item {
+      width: calc(33% - #{rem($layout-padding-gutter-big)});
+      margin: rem($layout-padding-gutter-big/2);
+
+      @include size768 {
+        width: calc(50% - #{rem($layout-padding-gutter-min)});
+        margin: rem($layout-padding-gutter-min/2);
+      }
+
+      @include size320 {
+        width: 100%;
+        margin-right: 0;
+      }
+    }
+  }
+
+  &__panel {
+    &-body {
+      padding: rem(18px 8px 18px 18px);
+    }
+  }
+
+  // Элемент отправленной ставки
+  &__item {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: $bet-item-bg;
+    overflow: hidden;
+    border-radius: 5px;
+    margin-bottom: rem(15px);
+
+    &-header {
+      font-weight: bold;
+      background: $game-status-header-bg;
+      padding: rem(10px 14px);
+    }
+  }
+
+  &__item-remove {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: $game-status-header-remove-bg;
+    right: 10px;
+    top: 10px;
+    border-radius: 50%;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: $transition-default;
+    cursor: pointer;
+
+    &:hover {
+      background: $white;
+    }
+
+    &:before {
+      @extend .font;
+      @extend .font--delete;
+      font-size: rem(6px);
+      color: $bet-item-bg;
+    }
+  }
+
+  &__item-body {
+    display: flex;
+    flex-direction: column;
+    padding: rem(10px 14px);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__item-title {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: rem(5px);
+  }
+
+  &__item-header-title {
+    font-size: rem(16px);
+    color: $white;
+  }
+
+  &__item-header-value {
+    font-size: rem(18px);
+    color: $white;
+  }
+
+  &__item-bet {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__item-bet-title {
+    color: $bet-title;
+    font-size: rem(14px);
+  }
+
+  &__item-bet-value {
+    color: $bet-title;
+    font-size: rem(14px);
+    margin-left: 8px;
+    white-space: nowrap;
+  }
+
+  &__item-bet-status {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: rem(15px);
+    padding-bottom: rem(5px);
+    align-items: center;
+
+    @include size320 {
+      &-title {
+        display: none;
+      }
+
+      &-info {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+
+  &__item-bet-status_error {
+    width: 100%;
+  }
+
+  &__item-bet-status-title {
+    color: $bet-title;
+    font-size: rem(14px);
+  }
+
+  &__item-bet-status-info {
+    background: $bet-error;
+    color: $bet-error-text;
+    font-size: rem(14px);
+    border-radius: 5px;
+    padding: rem(5px 10px);
+  }
+
+  &__item-bet-status-info_accepted {
+    background: $bet-pending;
+    color: #603d04;
+  }
+
+  &__item-bet-status-info_playing {
+    background: $bet-playing;
+    color: $bet-playing-text;
+  }
+
+  &__item-bet-status-info_win {
+    background: $bet-win;
+    color: $bet-win-text;
+  }
+
+  &__item-bet-status-info_lose {
+    background: $bet-lose;
+    color: $bet-lose-text;
+  }
+
+  &__item-bet-status-info_error {
+    background: $bet-error;
+    color: $bet-error-text;
+  }
+
+  &__scroll {
+    &__view {
+      padding: rem(10px 20px 10px 10px);
+    }
+
+    &__track {
+      position: absolute;
+      width: rem(8px) !important;
+      right: rem(2px);
+      bottom: rem(2px);
+      top: rem(2px);
+      border-radius: rem(3px);
+
+      & > div {
+        background-color: $light-green !important;
+      }
+    }
+  }
+
+  &__modal {
+    background: $bet-item-bg;
+    border-radius: 5px;
+    padding: rem(14px 18px);
+    width: rem(380px);
+    height: rem(140px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    outline: none;
+
+    &-title {
+      color: $bet-title;
+      font-size: rem(24px);
+      text-align: center;
+    }
+
+    &-buttons {
+      width: 100%;
+      margin-top: rem(16px);
+      text-align: center;
+
+      &-confirm,
+      &-close {
+        background: $red;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        font-size: rem(20px);
+        font-weight: 600;
+        height: rem(40px);
+        padding-top: rem(9px);
+        text-align: center;
+
+        @include size320 {
+          font-size: rem(26px);
+          height: rem(50px);
+        }
+
+        &:hover {
+          background: $dark-red;
+        }
+      }
+
+      &-confirm {
+        width: 49%;
+        margin-right: 1%;
+      }
+
+      &-close {
+        background: $dark-gray;
+        width: 49%;
+        margin-left: 1%;
+      }
+    }
+  }
+
+  &__overlay {
+    background: $overlay-bg;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-config-prettier",
+    "tslint-plugin-prettier"
+  ],
+  "rules": {
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "quotemark": [true, "single", "jsx-double"],
+    "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case"],
+    "no-console": false,
+    "no-debugger": false,
+    "prettier": [true, ".prettierrc.js"]
+  },
+  "linterOptions": {
+    "exclude": [
+      "src/**/*.js",
+      "src/**/*.proto.js",
+      "src/**/proto/*.ts",
+      "config/**/*.js",
+      "node_modules/**/*.ts",
+      "coverage/lcov-report/*.js"
+    ]
+  }
+}

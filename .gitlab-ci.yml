@@ -1,0 +1,33 @@
+stages:
+  - build
+  - build_stage
+
+build:
+  stage: build
+  tags:
+    - lobby
+  script:
+    - node -v
+    - yarn install
+    - yarn build
+  artifacts:
+    paths:
+      - build/*
+    expire_in: 1 week
+  except:
+    - stage
+
+build_stage:
+  stage: build_stage
+  tags:
+    - lobby
+  script:
+    - node -v
+    - yarn install
+    - yarn build-dev
+  artifacts:
+    paths:
+      - build/*
+    expire_in: 1 week
+  only:
+    - stage

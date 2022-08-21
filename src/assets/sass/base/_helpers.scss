@@ -1,0 +1,27 @@
+// Вспомогательные ф-ии для адаптивности
+
+$width320: 320px;
+$width768: 768px;
+$width1024: 1024px;
+$width1200: 1200px;
+
+@mixin size320 {
+  @media (max-width: #{$width768}) {
+    @content;
+  }
+}
+@mixin size768 {
+  @media (max-width: 850px) {
+    @content;
+  }
+}
+@mixin size1024 {
+  @media (max-width: #{$width1024}) {
+    @content;
+  }
+}
+@mixin size1200 {
+  @media (max-width: #{$width1200}) {
+    @content;
+  }
+}

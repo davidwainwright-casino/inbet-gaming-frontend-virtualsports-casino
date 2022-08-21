@@ -1,0 +1,78 @@
+syntax="proto3";
+
+message Odd {
+    uint64 odd      = 1; // multiplied by 100 - сам коэффициент
+    uint64 kind     = 2; // - тип, расшифровка выше
+    int32  handicap = 3; // multiplied by 10 - аргумент для форы
+    int32  total    = 4; // mulitplied by 10 - аргумент для тотала
+    int32  goals    = 5; // multiplied by 10 - аргумент для total goeals
+    uint64 teamA    = 6; // for exact scores... - аргументы для точного счета
+    uint64 teamB    = 7; // - аргументы для точного счета
+}
+
+enum GameState {
+    betting = 0;
+    playing = 1;
+}
+
+message HistoryRecord {
+    uint64 round      = 1;
+    uint32 teamAScore = 2;
+    uint32 teamBScore = 3;
+    string teamA      = 4;
+    string teamB      = 5;
+    repeated Odd winningOdds = 6;
+}
+
+message SoccerState {
+    uint64 stamp       = 1;
+    uint64 now         = 2;
+    uint64 time2switch = 3;
+
+    repeated Odd odds  = 4;
+    string teamA       = 5;
+    string teamB       = 6;
+
+    GameState state    = 7;
+    uint32 teamAScore  = 8;
+    uint32 teamBScore  = 9;
+    string video       = 10;
+    uint64 gameRound   = 11;
+
+    uint64 vsn         = 12;
+    uint64 jp          = 13;
+    repeated HistoryRecord history          = 14;
+    repeated uint64 jpWinners               = 15;
+    repeated HistoryRecord thisTeamsHistory = 16;
+}
+
+message ClientBet {
+    message Bet {
+        string uuid   = 1;
+        uint64 kind   = 2;
+        uint64 amount = 3;
+        uint64 odd    = 4;
+    }
+    uint64 source = 1;
+    uint64 round  = 2;
+    repeated Bet bets = 3;
+}
+
+message ClientBetResponse {
+    message BetResponse {
+        uint64 result_id = 1;
+        uint64 amount    = 2;
+    }
+
+    enum ClientBetError {
+        not_betting_state = 0;
+        invalid_round     = 1;
+        invalid_source    = 2;
+        invalid_bet       = 3;
+    }
+
+    bool           ok    = 1;
+    ClientBetError error = 2;
+
+    repeated BetResponse bets = 3;
+}

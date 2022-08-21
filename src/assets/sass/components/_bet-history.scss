@@ -1,0 +1,83 @@
+// Стили для Истории ставок
+
+.bet-history {
+  margin: 0;
+
+  // Панель, используемая в всплывающей панели и окне
+  &__panel {
+    border-top-right-radius: 0;
+    display: block;
+
+    &-body {
+      padding: 0;
+    }
+  }
+
+  // Стили окна
+  &__window {
+    z-index: 22;
+    position: fixed;
+    top: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 100% !important;
+    box-shadow: none;
+    margin: 0;
+
+    &-head {
+      position: relative;
+    }
+
+    &__close-button {
+      position: absolute;
+      height: 100%;
+      width: 40px;
+      right: 0;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: $transition-default;
+      cursor: pointer;
+
+      &:before {
+        @extend .font;
+        @extend .font--delete;
+        font-size: rem(16px);
+      }
+    }
+  }
+
+  // Стили всплывающей панели
+  &__popup {
+    width: 450px !important;
+    margin-top: rem(20px);
+    z-index: 99;
+    position: relative;
+    overflow: visible !important;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12),
+      0 3px 5px -1px rgba(0, 0, 0, 0.4);
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: -20px;
+      right: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 0 20px 20px;
+      border-color: transparent transparent #272d38 transparent;
+      z-index: 99;
+    }
+
+    &__scroll {
+      height: 450px !important;
+
+      &__view {
+        padding: rem(20px);
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+// Анимация(лоадер) в момент загрузки данных с сервера
+
+@keyframes animation-loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(220deg);
+  }
+}
+
+@keyframes animation-loader2 {
+  0% {
+    box-shadow: inset #aeb0b9 0 0 0 17px;
+    transform: rotate(-140deg);
+  }
+  50% {
+    box-shadow: inset #aeb0b9 0 0 0 2px;
+  }
+  100% {
+    box-shadow: inset #aeb0b9 0 0 0 17px;
+    transform: rotate(140deg);
+  }
+}
+
+.loader {
+  width: 100%;
+  height: 200px;
+  position: relative;
+
+  &__item {
+    &-body {
+      animation: animation-loader 1.5s linear infinite;
+      clip: rect(0, 80px, 80px, 40px);
+      height: 80px;
+      width: 80px;
+      position: absolute;
+      left: calc(50% - 40px);
+      top: 50%;
+
+      &:after {
+        animation: animation-loader2 1.5s ease-in-out infinite;
+        clip: rect(0, 80px, 80px, 40px);
+        content: '';
+        border-radius: 50%;
+        height: 80px;
+        width: 80px;
+        position: absolute;
+      }
+    }
+  }
+}

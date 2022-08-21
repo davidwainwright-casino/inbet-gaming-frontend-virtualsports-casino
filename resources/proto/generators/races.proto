@@ -1,0 +1,67 @@
+syntax = "proto2";
+
+enum BetType {
+    win_1_place     = 0;
+    not_1_place     = 1;
+    win_1_2_place   = 2;
+    not_1_2_place   = 3;
+    win_1_2_3_place = 4;
+    not_1_2_3_place = 5;
+    double_1_place      = 6;
+    not_double_1_place  = 7;
+    order_1_2       = 8;
+    not_order_1_2   = 9;
+}
+
+message DogsSingleCoeff {
+    required uint32 dog1    = 1;
+    optional uint32 dog2    = 2;
+    required double coeff   = 3;
+}
+
+message DogsCoeffs {
+    required BetType         type   = 1;
+    repeated DogsSingleCoeff coeffs = 2;
+}
+
+message DogsState {
+    required uint64 round = 1;
+    required Phase  phase = 2 [default=init];
+    required uint32 source = 3;
+    optional uint64 event_id = 4;
+    optional uint64 game_id = 5;
+    optional uint64 time_start = 10;
+    optional uint64 time_total = 11;
+    optional uint64 time_left = 12;
+    optional uint64 time_to_switch = 13;
+    optional string leaders = 20;
+    repeated DogsCoeffs coeffs      = 21;
+    optional string video_file  = 22;
+
+    enum Phase {
+        init    = 0;
+        bet     = 1;
+        play    = 2;
+    }
+}
+
+message DogsHistoryEntry {
+    required uint64 round      = 1;
+    required uint32 outcome    = 2;
+    repeated DogsCoeffs coeffs = 3;
+    optional uint64 event_id    = 4;
+    optional uint64 event_begin = 5;
+}
+
+message DogsSingleStat {
+    required uint32 leader1 = 1;
+    required uint32 leader2 = 2;
+    required uint32 leader3 = 3;
+}
+
+message DogsMonitor {
+    required DogsState state = 1;
+    repeated DogsSingleStat stats = 2;
+    required uint32 stat_rounds_count = 3;
+    repeated DogsHistoryEntry history = 4;
+}

@@ -1,0 +1,104 @@
+// Специфичные стили для игры "Футбол"
+
+.football {
+  &__team-inline {
+    display: inline;
+  }
+
+  // Область статуса игры
+  &__game-status {
+    font-size: rem(18px);
+
+    &__panel .panel__head-title {
+      width: 100%;
+      white-space: normal;
+    }
+
+    // Имя команды
+    &-team {
+      white-space: nowrap;
+    }
+
+    &-vs {
+      color: $football-vs-color;
+      margin: rem(0 10px);
+    }
+
+    &-number {
+      color: $football-number-color;
+      margin: rem(0 10px);
+    }
+
+    // Логотип команды
+    &-logo {
+      display: inline-block;
+      vertical-align: middle;
+      width: rem(42px);
+      height: rem(35px);
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position-x: center;
+      margin: rem(0 4px);
+
+      @include size320 {
+        display: none;
+      }
+    }
+  }
+
+  // История последних игр
+  &__history {
+    font-size: rem(20px);
+
+    // Таблица результатов
+    &__table {
+      margin-top: rem(20px);
+      width: 100%;
+      text-align: center;
+      $grand: &;
+
+      &,
+      &__row,
+      &__cell {
+        border: 1px solid #454f63;
+        border-spacing: 0;
+        border-collapse: collapse;
+      }
+
+      &__cell {
+        padding: rem(20px 0);
+        position: relative;
+        z-index: 1;
+
+        &:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: #2a2f3b;
+          z-index: -1;
+        }
+
+        &:first-child:before {
+          left: rem(8px);
+        }
+
+        &:last-child:before {
+          right: rem(8px);
+        }
+      }
+
+      &__row {
+        &:first-child #{$grand}__cell:before {
+          top: rem(8px);
+        }
+
+        &:last-child #{$grand}__cell:before {
+          bottom: rem(8px);
+        }
+      }
+    }
+  }
+}

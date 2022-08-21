@@ -1,0 +1,19 @@
+// import * as React from 'react';
+// import { IFootballItem, IFootballState } from '../../models';
+
+// export const footballMakeBetTitleRenderer = (odd: IFootballItem) => {
+//   if(!odd.serverData 
+//     || odd.serverData.kind === undefined 
+//     || odd.serverData.kind === null
+//     || [0, 2].indexOf(Number(odd.serverData.kind)) < 0) {
+//       return odd.title;
+//     }
+
+//     const game = odd.game as IFootballState;
+
+//     return (
+//       <span className='football__team-inline'>
+//         {!odd.serverData.kind ? game.teamAName : game.teamBName}
+//       </span>
+//     );
+// }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="australia" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 300 300" style="enable-background:new 0 0 300 300;" xml:space="preserve">
+<style type="text/css">
+	.st0{clip-path:url(#SVGID_2_);}
+	.st1{fill:#FFFFFF;}
+	.st2{fill:#00008B;}
+	.st3{fill:#FF0000;}
+</style>
+<title>Australia</title>
+<g id="Слой_2">
+	<g id="Layer_1">
+		<g>
+			<defs>
+				<circle id="SVGID_1_" cx="150" cy="150" r="150"/>
+			</defs>
+			<clipPath id="SVGID_2_">
+				<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+			</clipPath>
+			<g class="st0">
+				<g id="Star_Beta_Crucis">
+					<polygon id="Star7" class="st1" points="304,110.6 308.2,123.5 320.9,118.7 313.4,130 325.1,137 311.5,138.1 313.4,151.6 
+						304,141.8 294.7,151.6 296.5,138.1 283,137 294.7,130 287.2,118.7 299.9,123.5 					"/>
+				</g>
+				<path class="st2" d="M-73.6,0h604.2v302.1H-73.6V0z"/>
+				<g id="Commonwealth_Star">
+					<polygon id="Star7-2" class="st1" points="77.5,181.3 86.2,208.4 112.9,198.3 97.1,222.1 121.6,236.7 93.2,239.1 97.1,267.4 
+						77.5,246.7 57.8,267.4 61.7,239.1 33.3,236.7 57.8,222.1 42,198.3 68.7,208.4 					"/>
+				</g>
+				<g id="Star_Alpha_Crucis">
+					<polygon id="Star7-3" class="st1" points="379.6,230.2 383.7,243.1 396.4,238.3 388.9,249.6 400.6,256.6 387.1,257.7 
+						388.9,271.2 379.6,261.4 370.2,271.2 372.1,257.7 358.5,256.6 370.2,249.6 362.7,238.3 375.4,243.1 					"/>
+				</g>
+				<g id="Star_Gamma_Crucis">
+					<polygon id="Star7-4" class="st1" points="379.6,28.8 383.7,41.7 396.4,36.9 388.9,48.2 400.6,55.2 387.1,56.3 388.9,69.8 
+						379.6,59.9 370.2,69.8 372.1,56.3 358.5,55.2 370.2,48.2 362.7,36.9 375.4,41.7 					"/>
+				</g>
+				<g id="Star_Delta_Crucis">
+					<polygon id="Star7-5" class="st1" points="446.7,90.4 450.9,103.4 463.6,98.6 456.1,109.9 467.7,116.8 454.2,118 456.1,131.5 
+						446.7,121.6 437.3,131.5 439.2,118 425.7,116.8 437.4,109.9 429.8,98.6 442.5,103.4 					"/>
+				</g>
+				<g id="Star_Epsilon_Crucis">
+					<polygon id="Star5" class="st1" points="409.8,151.1 413.1,159.1 421.8,159.8 415.1,165.4 417.2,173.8 409.8,169.2 
+						402.4,173.8 404.5,165.4 397.8,159.8 406.5,159.1 					"/>
+				</g>
+				<path id="White_Cross" class="st1" d="M52.3,0h50.3v50.3h125.9v50.3H102.6v50.4H52.3v-50.4H-73.6V50.3H52.3V0z"/>
+				<path id="White_Diagonal" class="st1" d="M-73.6,0h33.8l268.3,134.2v16.9h-33.8L-73.6,16.9V0z"/>
+				<g id="White_Diagonal_Flipped">
+					<path id="White_Diagonal-2" class="st1" d="M228.5,0h-33.8L-73.6,134.2v16.9h33.8L228.5,16.9V0z"/>
+				</g>
+				<path id="Red_Cross" class="st3" d="M62.4,0h30.2v60.4h136v30.2h-136v60.4H62.4V90.6h-136V60.4h136V0z"/>
+				<path id="Red_Diagonals" class="st3" d="M-73.6,0L27.1,50.3H4.6l-78.2-39.1V0z M228.5,0H206L105.3,50.3h22.5L228.5,0z"/>
+				<g id="Red_Diagonals_Rotated">
+					<path id="Red_Diagonals-2" class="st3" d="M228.5,151.1l-100.7-50.4h22.5l78.2,39.1L228.5,151.1z M-73.6,151.1h22.5l100.7-50.4
+						H27.1L-73.6,151.1z"/>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>

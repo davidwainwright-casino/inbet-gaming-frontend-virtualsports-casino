@@ -1,0 +1,102 @@
+// Универсальные стили используемые в интефейсе для блоков с загловками
+
+.panel {
+  display: inline-block;
+  width: 100%;
+  background: $panel-bg;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: rem(20px) 0;
+
+  @include size1200 {
+    margin: rem(10px) 0;
+  }
+
+  // Заголовок
+  &__head {
+    display: flex;
+    align-items: center;
+
+    background: #272d39;
+    padding: rem(16px 28px);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    font-size: rem(24px);
+
+    @include size1024 {
+      font-size: rem(24px);
+    }
+    @include size320 {
+      font-size: rem(28px);
+    }
+
+    // Текст заголовка
+    &-title {
+      flex: 1;
+    }
+
+    // Кнопка для отображения с выраниванием справа(напрмер сворачивание, закрытие)
+    &-button {
+      display: block;
+      float: right;
+      cursor: pointer;
+      outline: none;
+      user-select: none;
+      // -webkit-tap-highlight-color: transparent;
+
+      &:before {
+        font-size: rem(16px);
+      }
+    }
+
+    &-right {
+      &-label {
+        color: #747d93;
+        font-size: rem(16px);
+        user-select: none;
+      }
+
+      &-buttons {
+        font-size: rem(16px);
+        user-select: none;
+        display: inline;
+        margin: 0;
+        padding: 0;
+        margin-left: rem(10px);
+
+        li {
+          display: inline;
+          list-style-type: disc;
+          background: $title-right-buttons-bg;
+          margin: rem(5px);
+          padding: rem(5px 7px);
+          border-radius: rem(5px);
+          cursor: pointer;
+
+          &:last-child {
+            margin-right: 0;
+          }
+
+          &.active {
+            background: $title-right-buttons-active-bg;
+          }
+        }
+      }
+    }
+  }
+
+  // Контейнер для содержимого
+  &__body {
+    padding: rem(28px);
+    @include size1200 {
+      padding: rem(20px);
+    }
+
+    &-hr {
+      margin: rem(23px 0);
+      border-top: 1px solid $separator-color;
+    }
+  }
+}

@@ -1,0 +1,730 @@
+syntax="proto3";
+// package inbet.communication;
+
+/////////////
+// COMMONS //
+/////////////
+
+
+// Information about current bet status in processing flow, from it accept from front-end to calculate winning summ by it.
+// Bet status flow:
+// 1) Bet accept in BS_undefined from front-end.
+// 2) Next step is decrease user balance on this bet ammount, after decrease user balance this bet status set in BS_accepted.
+// 3) Next step is increase user balance on this bet winning summ(Note: winning summ can be zero). After calculation winning summ, this bet status set in BS_calculated.
+// Bet cancel. In some games can cansel bet after send in to server, in betting phase.
+// If user cansel bet, client can send to server this bet with status BS_want_cancel.
+// After accept BS_want_cancel bet, server increase user balance on this bet ammount and set bet status in BS_user_canceled.
+// Important! Server accept list of bets and send to client list of bets, with zero, one o more bets.
+// Important! After changeв status of any bets server will be send to client all bet with it current(new if changed) status.
+enum BetStatus {
+	// not processed yet
+	BS_undefined = 0;
+	// denied for some reason
+	BS_denied = 1;
+	// lba accepted bet , result unknown yet
+	BS_accepted = 2;
+	// lba canceled bet by user's cancel request
+	BS_user_canceled = 3;
+	// lba calculated pay amount for bet
+	BS_calculated = 4;
+	// this status from clients
+	BS_want_cancel = 5;
+}
+
+enum SessionError {
+	// default is ok
+	SE_undefined = 0;
+    // If serve can'be accept user balanse.
+	SE_balance_not_available = 1;
+	// If few parallel client running. Last client not accept this error prev accept.
+	SE_broken_session = 2;
+}
+
+// Game timer, on base in view time line in client, and claclulated betting_pre_blocked:
+// Contains time in millisecond from epoch start(elapsed since January 1, 1970 (midnight UTC/GMT)).
+message Timers {
+  // Game period start time in millisecond:
+	uint64 begin = 1;
+  // Game period current time in millisecond:
+	uint64 current = 2;
+  // Game period end time in millisecond:
+	uint64 end = 3;
+}
+
+message Bet {
+  // Unique bet identificator (need use uuid). Need only for identify bet between cline and server.
+	string bet_id = 1;
+	uint64 bet_amount = 2;
+	uint64 pay_amount = 3;
+	BetStatus status = 4;
+  uint32 game_id = 5;
+	// source - based fields
+	Bet888 bet888 = 6;
+	Bet7XX bet7xx = 7;
+	Bet886 bet886 = 8;
+	Bet1XXX bet1009 = 9;
+	Bet1013 bet1013 = 10;
+	Bet999XX bet99920 = 11;
+	Bet1XXX bet1204 = 12;
+	Bet999XX bet99911 = 13;
+  Bet999XX bet99914 = 14;
+	Bet1024 bet1024 = 15;
+  Bet4001 bet4001 = 16;
+  // Race games for lobby:
+  Bet7XX bet2106 = 17;
+  Bet7XX bet2108 = 18;
+  Bet7XX bet2116 = 19;
+  Bet7XX bet2118 = 20;
+  Bet7XX bet2120 = 21;
+  Bet7XX bet2121 = 22;
+  Bet7XX bet2122 = 23;
+  Bet7XX bet2123 = 24;
+	// source - based fields, continue
+  Bet1XXX bet1018 = 25;
+  Bet1XXX bet1019 = 26;
+  Bet999XX bet99927 = 27;
+	uint64 created_at = 28;
+}
+
+message Device {
+  // uuid and billing send from client:
+  // Clinet unique id:
+	string uuid = 1;
+	// Customer unique id:
+	string billing = 2;
+  // currency and balance send from server:
+  // User currency identifier:
+	string currency = 3;
+  // User balance amount:
+	uint64 balance = 4;
+  // Unique clent app id:
+	string session_id = 5;
+  // If billing session is null than 'uuid' and 'billing_session' equal.
+  string billing_session = 6;
+}
+
+message Request {
+	Device device = 1;
+	repeated Bet bets = 2;
+	string hash = 3;
+	repeated uint32 games_ids = 4;
+}
+
+message GameStateCommonFields {
+	uint64 max_bet = 1;
+	repeated uint64 slider = 2;
+	bool betting_pre_blocked = 3;
+	bool betting_blocked = 4;
+	LastRoundStats last_round_stats = 5;
+
+	message LastRoundStats {
+		uint64 round_id = 1;
+		uint64 begin_time = 2;
+		uint64 balance_begin = 3;
+		uint64 balance_end = 4;
+		uint64 total_bet = 5;
+		uint64 total_win = 6;
+	}
+}
+
+message Response {
+	repeated Bet bets = 1;
+	Device device = 2;
+	uint64 max_bet = 3;
+	repeated uint64 slider = 4;
+	SessionError error = 5;
+	string hash = 6;
+	bool betting_blocked = 7;
+	bool betting_pre_blocked = 8;
+	// game state (source - based fields)
+	GameState888 gamestate888 = 9;
+	GameState7XX gamestate7xx = 10;
+	GameState886 gamestate886 = 11;
+	GameState1XXX gamestate1009 = 12;
+	GameState1013 gamestate1013 = 13;
+	GameState999XX gamestate99920 = 14;
+	GameState1XXX gamestate1204 = 15;
+	GameState999XX gamestate99911 = 16;
+  GameState999XX gamestate99914 = 17;
+  GameState1024 gamestate1024 = 18;
+  GameState4001 gamestate4001 = 19;
+  // Race games for lobby:
+  GameState7XX gamestate2106 = 20;
+  GameState7XX gamestate2108 = 21;
+  GameState7XX gamestate2116 = 22;
+  GameState7XX gamestate2118 = 23;
+  GameState7XX gamestate2120 = 24;
+  GameState7XX gamestate2121 = 25;
+  GameState7XX gamestate2122 = 26;
+  GameState7XX gamestate2123 = 27;
+	// game state (source - based fields, continue)
+	GameState1XXX gamestate1018 = 28;
+	GameState1XXX gamestate1019 = 29;
+	GameState999XX gamestate99927 = 30;
+}
+
+//////////////////////////
+// COMMON GAMES STRUCTS //
+//////////////////////////
+
+message PlayingCard {
+	Suit suit = 1;
+	Value value = 2;
+	enum Suit {
+		Spades = 0;
+		Clubs = 1;
+		Diamonds = 2;
+		Hearts = 3;
+	}
+	enum Value {
+		V2 = 0;
+		V3 = 1;
+		V4 = 2;
+		V5 = 3;
+		V6 = 4;
+		V7 = 5;
+		V8 = 6;
+		V9 = 7;
+		V10 = 8;
+		Jack = 9;
+		Queen = 10;
+		King = 11;
+		Ace = 12;
+	}
+}
+
+message RouletteBet {
+	Type type = 1;
+	Alias alias = 2;
+	repeated uint32 sector_list = 3;
+	enum Type {
+	 	SECTOR_LIST = 0;
+		ALIAS = 1;
+	}
+	enum Alias {
+		red = 0;
+		black = 1;
+		big = 2;
+		small = 3;
+		odd = 4;
+		even = 5;
+		col1 = 6;
+		col2 = 7;
+		col3 = 8;
+		row1 = 9;
+		row2 = 10;
+		row3 = 11;
+	}
+}
+
+message RouletteMaxBets {
+	uint32 N1 = 1;
+	uint32 N2 = 2;
+	uint32 N3 = 3;
+	uint32 N4 = 4;
+	uint32 N6 = 5;
+	uint32 red = 6;
+	uint32 black = 7;
+	uint32 big = 8;
+	uint32 small = 9;
+	uint32 odd = 10;
+	uint32 even = 11;
+	uint32 col1 = 12;
+	uint32 col2 = 13;
+	uint32 col3 = 14;
+	uint32 row1 = 15;
+	uint32 row2 = 16;
+	uint32 row3 = 17;
+	uint32 all_round = 18;
+}
+
+enum Dynamics {
+	equal = 0;
+	up = 1;
+	down = 2;
+}
+
+/////////////////////
+// Roulette games: //
+/////////////////////
+
+message GameState1XXX {
+	Timers timers = 1;
+	Period period = 2;
+	uint64 round = 3;
+	repeated HistoryItem history = 4;
+	repeated uint32 stats = 5;
+	RouletteMaxBets maxbets = 6;
+	string link = 7;
+	string start_link = 8;
+	GameStateCommonFields game_state_common_fields = 10;
+	repeated uint32 stakes = 11;
+	enum Period {
+		bet = 0;
+		spin = 1;
+		win = 2;
+	}
+	message HistoryItem {
+		uint64 round = 1;
+		uint32 wincombo = 2;
+	}
+}
+
+message Bet1XXX {
+	uint64 round = 1;
+	RouletteBet body = 2;
+}
+
+//////////////////
+// PENALTY 1024 //
+//////////////////
+message Bet1024 {
+  uint64 round = 1;
+  int32 ball = 2;
+  Alias alias = 3;
+  Type type = 4;
+
+  enum Type {
+    ALIAS = 0;
+    BALL = 1;
+  }
+  enum Alias {
+    color1 = 0;
+    color2 = 1;
+    top    = 2;
+    center = 3;
+    bottom = 4;
+  }
+}
+
+message GameState1024 {
+  Timers timers = 1;
+  Period period = 2;
+  uint64 round = 3;
+  string video = 4;
+  repeated HistoryItem history = 5;
+  StatisticItem statistic = 6;
+  int32 win_ball = 7;
+  GameStateCommonFields game_state_common_fields = 8;
+  enum Period {
+		betting = 0;
+		playing = 1;
+	}
+	message HistoryItem {
+		uint64 round = 1;
+		int32 ball  = 2;
+	}
+	message StatisticItem {
+		uint32 miss  = 1;
+		uint32 post  = 2;
+    repeated uint32 balls = 3;
+	}
+}
+
+
+//////////////////////
+// ANIMAL RACES 7XX //
+//////////////////////
+
+message Bet7XX {
+	string game_name = 1;
+	string result_name = 2;
+	string result_value = 3;
+	uint64 round = 4;
+}
+
+message GameState7XX {
+	Timers timers = 1;
+	Period period = 2;
+	uint64 round = 3;
+	repeated HistoryItem history = 4;
+	repeated Odd odds = 5;
+	string video = 6;
+	repeated uint32 winners = 7;
+  GameStateCommonFields game_state_common_fields = 9;
+	enum Period {
+		betting = 0;
+		playing = 1;
+	}
+	message HistoryItem {
+		uint64 round = 1;
+		repeated uint32 winners = 2;
+	}
+	message Odd {
+		string game_name = 1;
+		repeated Result results = 2;
+		message Result {
+			string result_name = 1;
+			string result_value = 2;
+			Dynamics dynamics = 3;
+		}
+	}
+}
+
+
+///////////////////
+// BLACKJACK 886 //
+///////////////////
+
+enum Event886 {
+	S886_Event_undefined = 0;
+	S886_S0 = 1;
+	S886_S17 = 2;
+	S886_S18 = 3;
+	S886_S19 = 4;
+	S886_S20 = 5;
+	S886_S21 = 6;
+	S886_S22 = 7;
+	S886_PlayerWins = 8;
+	S886_Draw = 9;
+	S886_DealerWins = 10;
+	S886_Wins = 11;
+}
+
+enum KindEvent886 {
+	S886_KindEvent_undefined = 0;
+	S886_WhoWillWin = 1;
+	S886_DealerScore = 2;
+	S886_PvD = 3;
+}
+
+enum Player886 {
+	S886_Player_undefined = 0;
+	S886_P1 = 1;
+	S886_P2 = 2;
+	S886_P3 = 3;
+	S886_P4 = 4;
+	S886_P5 = 5;
+	S886_P6 = 6;
+	S886_Dealer = 7;
+}
+
+enum Period886 {
+	S886_Period_undefined = 0;
+	S886_Period1 = 1;
+	S886_Period2 = 2;
+	S886_Period3 = 3;
+	S886_Period4 = 4;
+}
+
+message Score886 {
+	uint32 value = 1;
+	bool blackjack = 2;
+}
+
+message Bet886 {
+	// from client
+	uint64 id = 1;
+	string odd = 2;
+	uint64 round = 3;
+	// from server
+	Period886 period = 4;
+	Player886 player = 5;
+	Event886 event = 6;
+	KindEvent886 kind_event = 7;
+}
+
+message GameState886 {
+	Timers timers = 1;
+	Period886 period = 2;
+	uint64 round = 3;
+	repeated HistoryItem history = 4;
+	repeated Odd odds = 5;
+	repeated CardPack card_packs = 6;
+	repeated StakeItem stakes = 7;
+  GameStateCommonFields game_state_common_fields = 8;
+	message HistoryItem {
+		uint64 round = 1;
+		repeated Wincombo wincombo = 2;
+		message Wincombo {
+			Player886 player = 1;
+			Score886 score = 2;
+		}
+	}
+	message Odd {
+		uint64 id = 1;
+		string odd = 2;
+		Player886 player = 3;
+		Event886 event = 4;
+		KindEvent886 kind_event = 5;
+		Status status = 6;
+		enum Status {
+			active = 0;
+			loose = 1;
+			win = 2;
+		}
+	}
+	message CardPack {
+		Player886 owner = 1;
+		repeated PlayingCard cards = 2;
+		Score886 score = 3;
+		bool hit = 4;
+	}
+	message StakeItem {
+		Player886 player = 1;
+		uint64 value = 2;
+	}
+}
+
+
+
+/////////////////////
+// Fortuna-18 1013 //
+/////////////////////
+
+message Bet1013 {
+	uint64 round = 1;
+	Body body = 2;
+	enum Body {
+		N0 = 0;
+		N1 = 1;
+		N2 = 2;
+		N3 = 3;
+		N4 = 4;
+		N5 = 5;
+		N6 = 6;
+		N7 = 7;
+		N8 = 8;
+		N9 = 9;
+		N10 = 10;
+		N11 = 11;
+		N12 = 12;
+		N13 = 13;
+		N14 = 14;
+		N15 = 15;
+		N16 = 16;
+		N17 = 17;
+		N18 = 18;
+		red = 19;
+		yellow = 20;
+		purple = 21;
+		odd = 22;
+		even = 23;
+		half1 = 24;
+		half2 = 25;
+		third1 = 26;
+		third2 = 27;
+		third3 = 28;
+		red_even = 29;
+		red_odd = 30;
+		yellow_even = 31;
+		yellow_odd = 32;
+		purple_even = 33;
+		purple_odd = 34;
+	}
+}
+
+message F18MaxBets {
+	uint32 N1 = 1;
+	uint32 red = 2;
+	uint32 yellow = 3;
+	uint32 purple = 4;
+	uint32 odd = 5;
+	uint32 even = 6;
+	uint32 half1 = 7;
+	uint32 half2 = 8;
+	uint32 third1 = 9;
+	uint32 third2 = 10;
+	uint32 third3 = 11;
+	uint32 red_even = 12;
+	uint32 red_odd = 13;
+	uint32 yellow_even = 14;
+	uint32 yellow_odd = 15;
+	uint32 purple_even = 16;
+	uint32 purple_odd = 17;
+	uint32 all_round = 18;
+}
+
+message GameState1013 {
+	Timers timers = 1;
+	Period period = 2;
+	uint64 round = 3;
+	repeated History full_history = 4;
+	uint64 stopstamp = 5;
+	uint32 ball = 6;
+	repeated StakeItem stakes = 7;
+	F18MaxBets maxbets = 8;
+	GameStateCommonFields game_state_common_fields = 9;
+
+	enum Period {
+		betting = 0;
+		playing = 1;
+	}
+	message StakeItem {
+		Bet1013.Body combo = 1;
+		uint64 value = 2;
+	}
+  message History {
+    uint64 round = 1;
+    int32 ball = 2;
+  }
+}
+
+
+/////////////////
+// Keno games: //
+/////////////////
+
+message Bet999XX {
+	uint64 round = 1;
+	repeated uint32 body = 2;
+}
+
+message GameState999XX {
+	Timers timers = 1;
+	Period period = 2;
+	uint64 round = 3;
+	repeated HistoryItem history = 4;
+	repeated uint64 stakes = 5;
+	repeated StatisticItem statistic = 6;
+  GameStateCommonFields game_state_common_fields = 7;
+	enum Period {
+		betting = 0;
+		playing = 1;
+	}
+	message HistoryItem {
+		uint64 round = 1;
+		repeated uint32 wincombo = 2;
+	}
+	message StatisticItem {
+		uint32 win = 1;
+		uint32 count = 2;
+	}
+}
+
+
+//////////////////////
+// Virtual Football //
+//////////////////////
+
+message Odd4001 {
+  uint64 odd      = 1; // multiplied by 100 - сам коэффициент
+  uint64 kind     = 2; // - тип, расшифровка выше
+  int32  handicap = 3; // multiplied by 10 - аргумент для форы
+  int32  total    = 4; // mulitplied by 10 - аргумент для тотала
+  int32  goals    = 5; // multiplied by 10 - аргумент для total goeals
+  uint64 teamA    = 6; // for exact scores... - аргументы для точного счета
+  uint64 teamB    = 7; // - аргументы для точного счета
+  Dynamics dynamics = 8;
+}
+
+message Bet4001 {
+	uint64 round = 1;
+  Odd4001 odd = 2;
+	string team_A_name = 3;
+  string team_B_name = 4;
+}
+
+message GameState4001 {
+	Timers timers = 1;
+	Period period = 2;
+	uint64 round = 3;
+	repeated TotalHistory total_history = 4;
+	repeated RoundTeamsHistory round_teams_history = 5;
+	string video = 6;
+  repeated Odd4001 odds = 7;
+  GameStateCommonFields game_state_common_fields = 8;
+	string team_A_name = 9;
+	string team_B_name = 10;
+	enum Period {
+		betting = 0;
+		playing = 1;
+	}
+	message TotalHistory {
+		repeated Odd4001 total_odds = 1;
+		string team_A_name = 2;
+		string team_B_name = 3;
+		repeated Odd4001 winning_odds = 4;
+    uint64 round_id = 5;
+    uint32 team_A_Score  = 6;
+    uint32 team_B_Score  = 7;
+	}
+	message RoundTeamsHistory {
+    uint32 team_A_score  = 1;
+    uint32 team_B_score  = 2;
+		string team_A_name = 3;
+		string team_B_name = 4;
+		repeated Odd4001 winning_odds = 5;
+		uint64 round_id = 6;
+	}
+}
+
+
+///////////////
+// POKER 888 //
+///////////////
+
+
+enum PokerHand {
+	NoPair   = 0;
+	OnePair  = 1;
+	TwoPair  = 2;
+	Trips    = 3;
+	Straight = 4;
+	Flush    = 5;
+	FlHouse  = 6;
+	Quads    = 7;
+	StFlush  = 8;
+}
+
+enum PokerStep {
+	PreFlop = 0;
+	Flop = 1;
+	Turn = 2;
+	River = 3;
+}
+
+message GameState888 {
+	Timers timers = 1;
+	Period period = 2;
+	PokerStep step = 3;
+	int64 round = 4;
+	repeated Table tables = 5;
+	repeated History history = 6;
+	GameStateCommonFields game_state_common_fields = 7;
+	enum Period {
+		bet = 0;
+		win = 1;
+	}
+	message Table {
+		int32 table_id = 1;
+		repeated PlayingCard community_cards = 2;
+		PokerHand win_hand = 3; // win phase
+		repeated Player players = 4;
+		repeated HandOdds hands_odds = 5;
+		message Player {
+			int32 player_id = 1;
+			int32 win_coeff = 2;
+			repeated PlayingCard pocket_cards = 3;
+		}
+		message HandOdds {
+			PokerHand hand = 1;
+			int32 win_coeff = 2;
+		}
+	}
+	message History {
+		int64 round_id = 1;
+		repeated Table tables = 2;
+		message Table {
+			int32 table_id = 1;
+			repeated int32 win_player_ids = 2;
+			PokerHand win_hand = 3;
+		}
+	}
+}
+
+message Bet888 {
+	int64 round = 1;
+	PokerStep step = 2;
+	repeated PlayerEvent player_events = 3;
+	repeated HandEvent hand_events = 4;
+	int64 win_coeff = 5;
+	message PlayerEvent {
+		int32 table_id = 1;
+		int32 player_id = 2;
+	}
+	message HandEvent {
+		int32 table_id = 1;
+		PokerHand hand = 2;
+	}
+}

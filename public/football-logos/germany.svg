@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="germany" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 300 300" style="enable-background:new 0 0 300 300;" xml:space="preserve">
+<style type="text/css">
+	.st0{clip-path:url(#SVGID_2_);}
+	.st1{fill:#DD0000;}
+	.st2{fill:#FFCE00;}
+</style>
+<title>Germany</title>
+<g id="Слой_2">
+	<g id="Layer_1">
+		<g>
+			<defs>
+				<circle id="SVGID_1_" cx="150" cy="150" r="150"/>
+			</defs>
+			<clipPath id="SVGID_2_">
+				<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+			</clipPath>
+			<g class="st0">
+				<rect id="black_stripe" x="-90.8" y="0.9" width="498.5" height="299.1"/>
+				<rect id="red_stripe" x="-90.8" y="100.6" class="st1" width="498.5" height="199.4"/>
+				<rect id="gold_stripe" x="-90.8" y="200.3" class="st2" width="498.5" height="99.7"/>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>

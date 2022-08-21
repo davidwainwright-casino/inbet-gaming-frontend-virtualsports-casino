@@ -1,0 +1,28 @@
+﻿@charset "UTF-8";
+
+// Импорт стиля для загрузки шрифта из https://fonts.google.com/. Можно выбрать различные шрифты.
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600');
+
+// Импорт модулей со стилями
+@import 'base/rem';
+@import 'base/helpers';
+@import 'base/font';
+@import 'base/settings';
+@import 'base/base';
+@import 'base/layout';
+@import 'components/loader';
+@import 'components/menu';
+@import 'components/header';
+@import 'components/panel';
+@import 'components/history';
+@import 'components/bet-status';
+@import 'components/game-status';
+@import 'components/player';
+@import 'components/bet-list';
+@import 'components/notification';
+@import 'components/bet-history';
+@import 'games/keno';
+@import 'games/football';
+@import 'games/penalty';
+@import 'games/fortuna';
+@import 'games/roulette';

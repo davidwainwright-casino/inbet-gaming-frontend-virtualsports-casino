@@ -1,0 +1,127 @@
+syntax = "proto2";
+
+message KenoState {
+  enum Phase {
+    k_init    = 0;
+    k_bet     = 1;
+    k_win     = 2;
+  }
+  required uint64 round       = 1;
+  required Phase  phase       = 2;
+  repeated uint32 balls       = 3;
+  optional uint64 jackpot     = 4;
+  optional uint64 event_id    = 5;
+  optional uint64 game_id     = 6;
+
+  optional uint64 time_start  = 10;
+  optional uint64 time_total  = 11;
+  optional uint64 time_left   = 12;
+  optional uint64 time_switch = 13;
+}
+
+message KenoHistory {
+  repeated uint32 balls      = 1;
+  optional uint64 time_start = 2;
+  optional uint64 time_end   = 3;
+  optional uint64 event_id   = 4;
+  optional uint64 game_id    = 5;
+}
+
+message KenoPublicHistory {
+  required uint64 round = 1;
+  repeated uint32 balls = 2;
+}
+
+message KenoStats {
+  repeated double stakes = 1 [packed=true]; // index+1 = ball 
+}
+
+message KenoOdd {
+  required uint32 choosen = 1;
+  required uint32 matched = 2;
+  required double odd     = 3;
+}
+
+message KenoConfig {
+  repeated KenoOdd odds             = 1;
+  required uint32  balls_game       = 2;
+  required uint32  balls_total      = 3;
+  required uint32  source           = 4;
+  optional string  title            = 5;
+  optional string  css              = 6;
+  optional uint64  max_balls_in_bet = 7 [default=10];
+  repeated double  calc_items       = 9;
+}
+
+message KenoBetEntryRequest {
+  repeated uint32 balls  = 1;
+  required uint64 round  = 2;
+  optional uint64 amount = 3;
+}
+
+message KenoBetRequest {
+  enum BetType {
+    bt_ordinar = 1;
+    bt_express = 2;
+  }
+  repeated KenoBetEntryRequest bets   = 1;
+  optional BetType             type   = 2 [default=bt_ordinar];
+}
+
+message KenoBetResponse {
+  enum MKSlipErrorCode {
+    NO_RESULTS                      = 1;
+    INVALID_CASHIER_BALANCE         = 2;
+    UNKNOWN_RESULT_SOURCE           = 3;
+    INVALID_BET_ODD                 = 4;
+    INACTIVE_RESULT                 = 5;
+    INVALID_RESULT_STATUS           = 6;
+    AMOUNT_TOO_BIG                  = 7;
+    OUT_OF_LIMITS                   = 8;
+    NO_ENOUGH_MONEY                 = 9;
+    MYSQL_FAILED                    = 10;
+    AUTH_FAILED                     = 11;
+    DUPLICATE_TRX                   = 12;
+    EXPIRED                         = 13;
+    CLIENT_NO_CARD                  = 14;
+    CLIENT_NO_MONEY                 = 15;
+    CLIENT_NO_AUTH                  = 16;
+    CLIENT_NOT_REGISTERED           = 17;
+    CLIENT_UNKNOWN                  = 18;
+    INACTIVE_RESULT_AND_INVALID_ODD = 19;
+    DUPLICATE_EXPRESS_EVENT         = 20;
+    OUT_OF_GAME_LIMITS              = 21;
+    ACCOUNT_BLOCKED                 = 22;
+    NO_SHIFT_ID                     = 23;
+
+    UNKNOWN                         = 100;
+  }
+  enum KenoBetErrorCode {
+    kbe_invalid_amount    = 1;
+    kbe_not_betting_phase = 2;
+    kbe_invalid_round     = 3;
+    kbe_mkslip_error      = 4;
+    kbe_invalid_balls     = 5;
+  }
+
+  required bool             ok           = 1;
+  optional string           slip_url     = 2;
+  optional MKSlipErrorCode  mkslip_error = 3;
+  optional KenoBetErrorCode error        = 4;
+}
+
+message KenoCashierRequest {
+  optional KenoBetRequest bet = 1;
+}
+
+message KenoCashierResponse {
+  optional KenoState       state = 1;
+  optional KenoStats       stats = 2;
+  optional KenoBetResponse bet   = 3;
+}
+
+message KenoMonitorResponse {
+  required KenoState         state   = 1;
+  optional KenoStats         stats   = 2;
+  repeated KenoPublicHistory history = 3;
+}

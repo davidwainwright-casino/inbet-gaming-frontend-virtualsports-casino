@@ -1,0 +1,121 @@
+// Переменные используемые в стилизации игр
+
+//font
+$default: 'Source Sans Pro', sans-serif;
+//transition
+$transition-default: 0.2s all ease-in-out;
+// Colors
+$black: #191c23;
+$white: #f4f3f3;
+$red: #ed2f37;
+$yellow: #ffe26d;
+$light-gray: #dbdbdb;
+$orange: #d1783d;
+$light-purple: #747d93;
+$light-blue: #303643;
+$dark-red: #cf232a;
+$dark-blue: #2b2e3a;
+$dark-gray: #282828;
+$blue-title: #3f4455;
+$light-green: #b0fe76;
+$light-red: #ff6161;
+$light-blue: #616983;
+
+//player-history-colors
+$player-red: #ff2727;
+$player-white: #ffffff;
+$player-blue: #004ccc;
+$player-black: #000000;
+$player-green: #009c00;
+$player-gradient: linear-gradient(to bottom, #212121, #212121 10%, #ffffff 10%, #ffffff);
+$player-orange: #df7518;
+$player-pink: #d9497e;
+
+//bet component
+$bet-item-bg: #333745;
+$bet-item-hover-bg: #4c5267;
+$bet-title: #767f97;
+$bet-calc-btn: #464c5f;
+$bet-pending: #fca311;
+$bet-playing: #119bfc;
+$bet-playing-text: #084169;
+$bet-win: #81e979;
+$bet-win-text: #264924;
+$bet-lose: #ff6161;
+$bet-lose-text: #6b2d2d;
+$bet-error: #61697d;
+$bet-error-text: #22262f;
+$game-status-header-bg: #3a3f4e;
+$game-status-header-remove-bg: #616a7d;
+$game-status-started-badge-bg: #119afa;
+$game-status-finished-badge-bg: #f54349;
+$game-status-closed-badge-bg: #f8a111;
+$overlay-bg: rgba(25, 28, 35, 0.9);
+
+//game status component
+$bet-ready: #81e979;
+
+//base
+$body-color: $black;
+$text-color: #fff;
+$link-color: #fff;
+
+$blue-grey: #232831;
+$mid-grey: #1d2028;
+$panel-bg: #21252e;
+$menu-color: $white; //#61697d;
+$menu-hover-bg: $red;
+$menu-hover-color: $link-color;
+$title-right-buttons-bg: #3a3f4f;
+$title-right-buttons-active-bg: #ed2f37;
+$football-vs-color: #636c7f;
+$football-number-color: #b0fe76;
+
+$penalty-history-even-bg: #2d3341;
+$penalty-history-color: #9aa4bb;
+$penalty-bet-title-color1: #509aff;
+$penalty-bet-title-color2: #feb235;
+$penalty-sector-border: #454f63;
+$penalty-sector-color1: rgba(255, 177, 8, 0.35);
+$penalty-sector-selected-color1: rgba(255, 177, 8, 0.7);
+$penalty-sector-color2: rgba(13, 149, 254, 0.25);
+$penalty-sector-selected-color2: rgba(13, 149, 254, 7);
+
+$separator-color: #2a303b;
+$notification-green-bg: #38593c;
+$notification-green-color: #8dc393;
+$notification-red-bg: #7a2931;
+$notification-red-color: #fe7884;
+$notification-orange-bg: #73521d;
+$notification-orange-color: #d7b072;
+$roulette-label-color: #4d5463;
+$roulette-border-color: #454f63;
+$roulette-cell-bg: #323641;
+$roulette-cell-selected-bg: #fca516;
+$roulette-ball-black: #1a1e23;
+$roulette-ball-red: #ed3240;
+$roulette-ball-green: #45b236;
+
+$fortuna_area-bg: #2d3341;
+$fortuna_red: #ed3240;
+$fortuna_darkblue: #393679;
+$fortuna_orange: #fca516;
+$fortuna_blue: #00a1d7;
+$fortuna-history-even-bg: #2d3341;
+$fortuna-history-color: #9aa4bb;
+
+$football-your-bets-text-color: #4c5267;
+
+$keno-number-item-color: #333745;
+$keno-number-history-item-bg: #464c5f;
+$keno-number-color-contrast: #603d04;
+$keno-number-bg-active: #fca311;
+$keno-number-bg-win: #b1c928;
+$keno-number-bg-set: #4b5166;
+$keno-number-bg-set-in-game: #119afa;
+$keno-number-ball-bg: #f7b32e;
+$keno-number-ball-color: #5f3a09;
+$keno-number-video-bg: #303443;
+
+$layout-padding-gutter-min: 10px;
+$layout-padding-gutter-big: 24px;

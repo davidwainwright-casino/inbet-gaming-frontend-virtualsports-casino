@@ -1,0 +1,114 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-size: 16px;
+
+  @include size320 {
+    font-size: 10px;
+  }
+}
+
+body {
+  color: $text-color;
+  background-color: $body-color;
+  font-family: $default;
+}
+
+.wrapper {
+  float: left;
+  width: 100%;
+  display: flex;
+  padding: rem(40px 60px);
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.content {
+  flex: 1;
+  margin-right: 40px;
+
+  &--full-width {
+    flex: 1;
+  }
+}
+
+.sidebar {
+  flex: 0 0 27%;
+  min-width: 400px;
+}
+
+::-webkit-scrollbar {
+  min-width: 1px;
+  min-height: 1px;
+}
+::-webkit-scrollbar-thumb {
+  background: $bet-item-bg;
+}
+
+@include size1200 {
+  .wrapper {
+    flex-direction: column-reverse;
+    padding: rem(20px);
+
+    .content {
+      margin-right: 0;
+    }
+
+    .content,
+    .sidebar {
+      flex-grow: 100%;
+    }
+  }
+
+  .sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .game-status__panel {
+      flex: 0 0 100%;
+    }
+    .bet-status__panel {
+      margin-left: 0px;
+    }
+
+    .popular__panel,
+    .bet-status__panel {
+      flex-basis: calc(50% - #{rem($layout-padding-gutter-min)});
+    }
+
+    .history__panel {
+      flex: 0 0 100%;
+    }
+  }
+}
+
+@include size768 {
+  .sidebar {
+    min-width: auto;
+  }
+}
+
+@include size320 {
+  .wrapper {
+    padding: rem(20px) 0;
+  }
+
+  .sidebar {
+    .bet-status__panel,
+    .popular__panel {
+      flex-basis: 100%;
+    }
+  }
+}
+@include size320 {
+  .sidebar {
+    .game-status__panel {
+      display: block;
+    }
+  }
+}

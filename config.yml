@@ -1,0 +1,38 @@
+billing: SlK2mdHF
+defaultLanguage: en
+hideBalance: false
+onlyIntegerBets: false
+hideMenuOnGamePage: false
+availableLanguages:
+  - en
+  - en-us
+  - ru
+defaultBetButtons: # all numbers are in cents
+  - 100
+  - 300
+  - 500
+  - 1000
+  - 5000
+  - 10000
+sources:
+  dogs6: &default-game
+    USD: &default-currency
+      betButtons: [100, 300, 500, 1000, 3000, 10000] # all numbers are in cents
+      betStep: 100
+      minBet: 100
+      maxBetPerRound: 0
+    RUR: *default-currency
+    UAH: *default-currency
+    FUN: *default-currency
+    EUR: *default-currency
+  horses6: *default-game
+  dogs: *default-game
+  trone: *default-game
+  bike: *default-game
+  moto: *default-game
+  football: *default-game
+  goal: *default-game
+  bingo37: *default-game
+  roulette: *default-game
+  fortuna: *default-game
+  keno-live: *default-game

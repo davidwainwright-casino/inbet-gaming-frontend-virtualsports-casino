@@ -1,0 +1,150 @@
+syntax = "proto2";
+
+message Fortuna18Init {
+  optional double color_coeff          = 1 [default = 3];
+  optional double even_odd_coeff       = 2 [default = 2];
+  optional double direct_ball_coeff    = 3 [default = 18];
+  optional double sector_coeff         = 4 [default = 3];
+  optional double small_big_coeff      = 5 [default = 2];
+  optional double color_even_odd_coeff = 6 [default = 6];
+}
+
+message Fortuna18Bet {
+  enum Color {
+    f18_color_red    = 0;
+    f18_color_purple = 1;
+    f18_color_yellow = 2;
+  }
+
+  enum EvenOdd {
+    f18_eo_even = 0;
+    f18_eo_odd  = 1;
+  }
+
+  enum Sector {
+    f18_sector_1 = 0;
+    f18_sector_2 = 1;
+    f18_sector_3 = 2;
+  }
+
+  enum SmallBig {
+    f18_sb_small = 0;
+    f18_sb_big   = 1;
+  }
+
+  message EvenOddColor {
+    required Color   color    = 1;
+    required EvenOdd even_odd = 2;
+  }
+
+  repeated uint64   rounds             = 1;
+  optional Color    color              = 2;
+  optional EvenOdd  even_odd           = 3;
+  optional int32    ball               = 4;
+  optional Sector   sector             = 5;
+  optional SmallBig small_big          = 6;
+  optional EvenOddColor even_odd_color = 7;
+
+  optional uint32  amount   = 10;
+
+  optional bytes  uuid      = 20;
+}
+
+message Fortuna18State {
+  message Fortuna18History {
+    required uint64 round = 1;
+    required int32  ball  = 2;
+  }
+
+  enum Phase {
+    f18_init    = 0;
+    f18_bet     = 1;
+    f18_play    = 2;
+  }
+
+  required uint64 round   = 1;
+  optional Phase  phase   = 2 [default=f18_init];
+  optional bool   can_bet = 3;
+  optional bool   can_win = 4;
+
+  optional int32               ball    = 10;
+  repeated Fortuna18History    history = 11;
+
+  optional uint64 time_total     = 20;
+  optional uint64 time_left      = 21;
+  optional uint64 time_to_switch = 22;
+  optional uint64 time_now       = 23;
+  optional uint64 time_started   = 24;
+
+  repeated Fortuna18Bet bets     = 25; // calculated bets info
+}
+
+message Fortuna18CashierRequest {
+  repeated Fortuna18Bet bets = 1;
+}
+
+message Fortuna18BetResponse {
+  enum Error {
+    f18_br_round_missmatch     = 1;
+    f18_br_amount_too_low      = 2;
+    f18_br_amount_too_high     = 3;
+    f18_br_wrong_bet_structure = 4;
+    f18_br_not_betting_state   = 5;
+    f18_br_mkslip_error        = 6;
+  }
+  required bytes uuid  = 1;
+  optional bool  ok    = 2 [default=true];
+  optional Error error = 3;
+}
+
+message Fortuna18CashierResponse {
+  optional Fortuna18State       state    = 1;
+  repeated Fortuna18BetResponse bets     = 2;
+  optional string               slip_url = 3;
+}
+
+message Fortuna18Statistic {
+    message BallStatistic {
+        optional uint32 ball = 1;
+        optional uint64 count = 2;
+    }
+
+    message ColorStatistic {
+        optional Fortuna18Bet.Color color = 1;
+        optional uint64 count = 2;
+    }
+
+    message ParityStatistic {
+        optional Fortuna18Bet.EvenOdd parity = 1;
+        optional uint64 count = 2;
+    }
+
+    message HalvesStatistic {
+        optional Fortuna18Bet.SmallBig half = 1;
+        optional uint64 count = 2;
+    }
+
+    message ThirdsStatistic {
+        optional Fortuna18Bet.Sector third = 1;
+        optional uint64 count = 2;
+    }
+
+    message ColorParityStatistic {
+        optional Fortuna18Bet.Color color = 1;
+        optional Fortuna18Bet.EvenOdd parity = 2;
+        optional uint64 count = 3;
+    }
+
+    repeated BallStatistic balls = 1;
+    repeated HalvesStatistic halves = 2;
+    repeated ThirdsStatistic thirds = 3;
+    repeated ParityStatistic parities = 4;
+    repeated ColorStatistic colors = 5;
+    repeated ColorParityStatistic color_parities = 6;
+}
+
+message Fortuna18MonitorResponse {
+    optional Fortuna18State state = 1;
+    optional Fortuna18Statistic overall_stats = 2;
+    optional Fortuna18Statistic round_bets_stats = 3;
+}

@@ -1,0 +1,344 @@
+// Специфичные стили для игры "Рулетка"
+
+.roulette {
+  &__panel {
+    @extend .panel;
+    background: $panel-bg;
+    background-image: url('./../images/casino-chips.png');
+    background-repeat: no-repeat;
+    background-position: bottom;
+    padding: rem(28px);
+
+    @include size1200 {
+      padding: rem(10px 10px);
+    }
+
+    @include size320 {
+      // height: rem(1200px);
+    }
+  }
+
+  &__title {
+    font-size: rem(20px);
+    text-align: center;
+  }
+
+  &__table {
+    margin-top: rem(20px);
+    font-size: rem(28px);
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    $grand: &;
+    table-layout: fixed;
+
+    @media (min-width: 1200px) and (max-width: 1440px) {
+      font-size: rem(18px);
+    }
+
+    @include size1200 {
+      font-size: rem(18px);
+    }
+
+    @include size768 {
+      font-size: rem(24px);
+    }
+
+    @include size320 {
+      font-size: rem(20px);
+      margin-left: rem(40px);
+      transform: rotate(90deg) translate(50%, -65%);
+      width: 150%;
+      transform-origin: center top;
+
+      &:before {
+        content: '';
+        padding-top: 1000%; /* vertical value as  100% equals width */
+        float: left;
+      }
+    }
+
+    &,
+    &__row,
+    &__cell {
+      border-spacing: 0;
+      border-collapse: separate;
+    }
+
+    &__cell {
+      border: 2px solid $roulette-border-color;
+      border-bottom: none;
+      border-right: none;
+      padding: 9px;
+      // padding: rem(25px 10px);
+
+      // @include size1200 {
+      //   padding: rem(12px 5px);
+      // }
+
+      // @include size1024 {
+      //   padding: rem(12px 5px);
+      // }
+
+      position: relative;
+      z-index: 1;
+
+      &:last-child {
+        border-right: 2px solid $roulette-border-color;
+        border-left: none;
+      }
+
+      &__sq_red {
+        background-image: url('./../images/roulette_sq_red.png');
+        background-repeat: no-repeat;
+        background-size: 70%;
+        background-position: center;
+      }
+
+      &__sq_black {
+        background-image: url('./../images/roulette_sq_black.png');
+        background-repeat: no-repeat;
+        background-size: 70%;
+        background-position: center;
+      }
+
+      &_unused {
+        border: none !important;
+      }
+
+      &_label {
+        color: $roulette-label-color;
+        width: auto;
+        transform: rotateZ(0deg) !important;
+      }
+
+      &_hover-bg {
+        background-color: $roulette-cell-bg;
+      }
+
+      &_selected {
+        background-color: $roulette-cell-selected-bg;
+      }
+    }
+
+    &-last-col {
+      width: 10%;
+    }
+
+    &_left-border {
+      border-left: 2px solid $roulette-border-color !important;
+    }
+
+    &_right-border {
+      border-right: 2px solid $roulette-border-color !important;
+    }
+
+    &_top-border {
+      border-top: 2px solid $roulette-border-color !important;
+    }
+
+    &_radius-lt {
+      border-top-left-radius: rem(15px);
+    }
+
+    &_radius-lb {
+      border-bottom-left-radius: rem(15px);
+    }
+
+    &_radius-rt {
+      border-top-right-radius: rem(15px);
+    }
+
+    &_radius-rb {
+      border-bottom-right-radius: rem(15px);
+    }
+
+    &_bottom-border,
+    &_bottom-border #{$grand}__cell {
+      border-bottom: 2px solid $roulette-border-color !important;
+    }
+
+    &_no-top-border,
+    &_no-top-border #{$grand}__cell {
+      border-top: none !important;
+    }
+
+    &__row:last-child #{$grand}__cell {
+      border-bottom: 2px solid $roulette-border-color;
+    }
+
+    &__ball {
+      display: inline-block;
+      transform: rotateZ(270deg);
+      background: $roulette-ball-black;
+      border-radius: 70%;
+      transform: rotateZ(270deg);
+
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      // padding: rem(14px 2px);
+      // width: rem(65px);
+
+      // @include size1200 {
+      //   width: rem(45px);
+      // }
+
+      // @include size768 {
+      //   width: rem(35px);
+      //   padding: rem(10px 2px);
+      // }
+
+      // @include size320 {
+      //   width: rem(55px);
+      //   padding: rem(12px 2px);
+      // }
+
+      &:before {
+        content: '';
+        padding-top: 100%; /* vertical value as  100% equals width */
+        float: left;
+      }
+
+      line-height: 1;
+
+      &_red {
+        background: $roulette-ball-red;
+      }
+
+      &_green {
+        background: $roulette-ball-green;
+      }
+    }
+  }
+
+  &__history {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &-header {
+      display: inline-flex;
+      flex-direction: row;
+      justify-content: space-between;
+      border-bottom: 1px solid $light-blue;
+      padding-bottom: rem(6px);
+      margin: rem(28px);
+
+      @include size1200 {
+        margin: rem(20px);
+      }
+
+      margin-bottom: 0 !important;
+    }
+
+    &-title {
+      align-items: flex-start;
+      color: $light-purple;
+      font-size: rem(16px);
+      flex-direction: column;
+      width: 33.3%;
+
+      &:first-child {
+        padding-left: rem(10px);
+      }
+
+      &-number {
+        text-align: center;
+      }
+    }
+
+    &-content {
+      display: flex !important;
+      width: auto !important;
+      flex-direction: column;
+      margin-top: rem(5px);
+      outline: none;
+      margin: rem(28px);
+
+      @include size1200 {
+        margin: rem(20px);
+      }
+
+      margin-top: 0 !important;
+    }
+
+    &-item {
+      display: inline-flex;
+      font-size: rem(16px);
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: rem(10px);
+      width: 100%;
+
+      &:nth-child(even) {
+        background: $fortuna-history-even-bg;
+        overflow: hidden;
+        border-radius: 5px;
+      }
+
+      @include size320 {
+        font-size: rem(24px);
+      }
+
+      &-round {
+        align-items: flex-start;
+        flex-direction: column;
+        width: 33.3%;
+      }
+
+      &-number {
+        display: inline-flex;
+        flex-direction: column;
+        width: 33.3%;
+      }
+
+      &-stat {
+        align-items: flex-start;
+        flex-direction: column;
+        width: 33.3%;
+        padding-left: rem(4px);
+      }
+    }
+
+    &-number {
+      align-self: center;
+      background: $roulette-ball-black;
+      border-radius: 100%;
+      color: #fff;
+      width: rem(30px);
+      height: rem(30px);
+      font-size: rem(18px);
+      line-height: rem(30px);
+      text-align: center;
+
+      &[data-number='1'],
+      &[data-number='3'],
+      &[data-number='5'],
+      &[data-number='7'],
+      &[data-number='9'],
+      &[data-number='12'],
+      &[data-number='14'],
+      &[data-number='16'],
+      &[data-number='18'],
+      &[data-number='19'],
+      &[data-number='21'],
+      &[data-number='23'],
+      &[data-number='25'],
+      &[data-number='27'],
+      &[data-number='30'],
+      &[data-number='32'],
+      &[data-number='34'],
+      &[data-number='36'] {
+        background: $roulette-ball-red;
+      }
+
+      &:after {
+        content: attr(data-text);
+      }
+    }
+  }
+}

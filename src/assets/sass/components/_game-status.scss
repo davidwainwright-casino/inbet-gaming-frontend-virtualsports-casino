@@ -1,0 +1,167 @@
+// Панель статуса игры
+
+.game-status {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  $grand: &;
+
+  &__panel {
+    $panel-grand: &;
+
+    &_adaptive {
+      @include size1200 {
+        display: flex;
+        flex-direction: row;
+
+        #{$panel-grand}-head {
+          align-items: center;
+          width: rem(320px);
+        }
+
+        #{$panel-grand}-body {
+          flex: 1;
+        }
+      }
+
+      @include size320 {
+        #{$panel-grand}-head {
+          width: auto;
+        }
+      }
+    }
+
+    #{$panel-grand}-head.game-status-icon:before {
+      display: none;
+
+      @include size320 {
+        display: inline-block;
+      }
+    }
+  }
+
+  &__info {
+    display: inline-flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    margin-right: rem(30px);
+    width: 100%;
+  }
+
+  &__info-badge {
+    display: inline;
+
+    @include size320 {
+      display: none;
+    }
+  }
+
+  &__info-img {
+    width: 10px;
+    height: 10px;
+  }
+
+  &__info-value {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    font-size: rem(24px);
+    color: $white;
+  }
+
+  &__info-title {
+    font-size: rem(18px);
+    color: $light-purple;
+    padding-left: rem(42px);
+    padding-top: rem(5px);
+
+    @include size320 {
+      padding-left: 0;
+    }
+  }
+
+  &__counter {
+    display: inline-flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+  }
+
+  &__counter-info {
+    padding-top: rem(3px);
+    width: 100%;
+    font-size: rem(24px);
+    color: $white;
+  }
+
+  &__counter-title {
+    font-size: rem(18px);
+    color: $light-purple;
+    padding-top: rem(5px);
+  }
+}
+
+// Иконка статуса с иконкой
+.game-status-icon {
+  &_open {
+    @extend .font;
+    @extend .font--check-solid;
+
+    &:before {
+      background: $bet-ready;
+    }
+  }
+
+  &_started {
+    @extend .font;
+    @extend .font--flag;
+    &:before {
+      background: $game-status-started-badge-bg;
+    }
+  }
+
+  &_finished {
+    @extend .font;
+    @extend .font--check-solid;
+    &:before {
+      background: $game-status-finished-badge-bg;
+    }
+  }
+
+  &:before {
+    width: rem(30px);
+    height: rem(30px);
+    border-radius: 50%;
+    margin-right: rem(10px);
+    text-align: center;
+    font-size: rem(10px);
+    color: #000;
+
+    // IE 11 Win8.1 bug
+    line-height: 30px !important;
+    // line-height: rem(30px);
+    @include size768 {
+      line-height: 20px !important;
+    }
+  }
+
+  &_closed {
+    &:before {
+      background: $game-status-closed-badge-bg;
+      content: '!';
+      display: inline-block;
+      speak: none;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      vertical-align: middle;
+      text-align: center;
+      width: rem(30px);
+      font-size: rem(28px);
+      font-weight: bold;
+    }
+  }
+}

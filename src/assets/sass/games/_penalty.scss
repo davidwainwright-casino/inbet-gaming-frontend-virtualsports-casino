@@ -1,0 +1,202 @@
+// Специфичные стили для игры "Пенальти"
+
+.penalty {
+  &__panel {
+    font-size: rem(20px);
+    background: $black;
+    background-image: url('./../images/penalty_bg_image.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: left bottom;
+
+    &-body {
+      background: transparent;
+
+      @include size1024 {
+        padding: rem(10px 10px);
+      }
+    }
+  }
+  // Заголовок
+  &__title {
+    text-align: center;
+  }
+
+  &__table-wrapper {
+    position: relative;
+    margin: rem(60px);
+
+    @include size320 {
+      margin: rem(40px 20px);
+    }
+    // Верхний элемент для стилизации ворот
+    &__top-bg {
+      content: '';
+      right: rem(-19px);
+      top: rem(-20px);
+      left: rem(-20px);
+      height: rem(20px);
+      position: absolute;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-image: url('./../images/penalty_video_top_bg.png');
+    }
+    // Левая и правый элементы для стилизации ворот
+    &__left-bg,
+    &__right-bg {
+      content: '';
+      bottom: 0;
+      top: rem(-19px);
+      width: rem(19px);
+      position: absolute;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-image: url('./../images/penalty_video_left_bg.png');
+    }
+
+    &__left-bg {
+      left: rem(-19px);
+    }
+
+    &__right-bg {
+      right: rem(-19px);
+    }
+  }
+
+  &__bet-title {
+    &--color1 {
+      color: $penalty-bet-title-color1;
+    }
+
+    &--color2 {
+      color: $penalty-bet-title-color2;
+    }
+  }
+
+  &__table {
+    margin: rem(20px 0);
+    height: rem(550px);
+
+    @include size320 {
+      height: rem(350px);
+    }
+
+    width: 100%;
+    text-align: center;
+
+    &,
+    &-row,
+    &-cell {
+      border: 1px solid $penalty-sector-border;
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+
+    &-cell {
+      background: $penalty-sector-color1;
+
+      &:nth-child(2n + 1) {
+        background: $penalty-sector-color2;
+      }
+
+      &_selected {
+        background: $penalty-sector-selected-color1 !important;
+
+        &:nth-child(2n + 1) {
+          background: $penalty-sector-selected-color2 !important;
+        }
+      }
+    }
+
+    $table: &;
+
+    &-row--odd {
+      #{$table}-cell {
+        background: $penalty-sector-color2;
+
+        &:nth-child(2n + 1) {
+          background: $penalty-sector-color1;
+        }
+
+        &_selected {
+          background: $penalty-sector-selected-color2 !important;
+
+          &:nth-child(2n + 1) {
+            background: $penalty-sector-selected-color1 !important;
+          }
+        }
+      }
+    }
+  }
+  // История
+  &__history {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &-header {
+      display: inline-flex;
+      flex-direction: row;
+      border-bottom: 1px solid $light-blue;
+      padding-bottom: rem(6px);
+      width: 100%;
+    }
+
+    &-title {
+      align-items: flex-start;
+      color: $light-purple;
+      font-size: rem(16px);
+      flex-direction: column;
+      width: 33.3%;
+
+      &:first-child {
+        padding-left: rem(10px);
+      }
+    }
+
+    &-content {
+      display: flex !important;
+      width: auto !important;
+      flex-direction: column;
+      margin-top: rem(5px);
+      outline: none;
+    }
+
+    &-item {
+      display: inline-flex;
+      font-size: rem(16px);
+      flex-direction: row;
+      justify-content: space-between;
+      padding: rem(10px);
+      width: 100%;
+
+      &:nth-child(even) {
+        background: $penalty-history-even-bg;
+        overflow: hidden;
+        border-radius: 5px;
+      }
+
+      @include size320 {
+        font-size: rem(24px);
+      }
+    }
+
+    &-round,
+    &-sector,
+    &-statistic {
+      align-items: flex-start;
+      flex-direction: column;
+      width: 33.3%;
+    }
+
+    &-sector,
+    &-statistic {
+      color: $penalty-history-color;
+      word-wrap: break-word;
+    }
+
+    &-item_ball--2 &-statistic {
+      text-align: center;
+    }
+  }
+}

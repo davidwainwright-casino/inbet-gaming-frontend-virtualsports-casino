@@ -1,0 +1,164 @@
+.keno {
+  display: flex;
+
+  &__bet-panel {
+    @extend .panel;
+
+    flex: 0 0 100%;
+    min-width: 300px;
+
+    .bet-list__item-make-bet {
+      position: initial;
+    }
+  }
+
+  &__video {
+    @extend .panel;
+
+    flex: 1;
+    background-color: $keno-number-video-bg;
+    border-radius: 6px;
+    overflow: hidden;
+
+    padding-right: rem(4px);
+
+    $grand: &;
+
+    &-ball-wrap {
+      position: relative;
+
+      display: inline-flex;
+      width: 5%;
+
+      padding: rem(4px);
+      padding-right: 0;
+      // &:last-child {
+      //   padding-right: 10px;
+      // }
+
+      &:before {
+        content: '';
+        padding-top: 100%; /* vertical value as  100% equals width */
+        float: left;
+      }
+    }
+
+    &-ball {
+      background: $keno-number-ball-bg;
+      background: url(../images/ball.svg) no-repeat 100%;
+      // background-size: cover;
+      background-size: calc(100% - 4px);
+      /* background-size: contain; */
+      width: 100%;
+      background-position: 2px 2px;
+
+      width: 100%;
+      border-radius: 100%;
+      display: flex;
+
+      &:before {
+        content: '';
+        padding-top: 100%; /* vertical value as  100% equals width */
+        float: left;
+      }
+
+      &-number {
+        color: $keno-number-ball-color;
+        align-self: center;
+        width: 100%;
+        text-align: center;
+        font-size: rem(16px);
+
+        @include size320 {
+          font-size: rem(10px);
+        }
+      }
+    }
+
+    &_hidden #{$grand}-ball {
+      visibility: hidden;
+    }
+  }
+
+  &__table {
+    flex: 2;
+    font-size: rem(32px);
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    align-items: center;
+    align-content: flex-start;
+
+    // @include size320 {
+    //   font-size: rem(10px);
+    // }
+
+    &__item {
+      user-select: none;
+      background-color: $keno-number-item-color;
+      flex: 0 0 calc(10% - #{rem(6px)});
+      // height: rem(64px);
+      margin: rem(3px);
+      cursor: pointer;
+      // line-height: rem(64px);
+      border-radius: 6px;
+      overflow: hidden;
+
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      transition: 500ms background-color, 500ms color;
+
+      outline: none;
+
+      &:before {
+        content: '';
+        padding-top: 100%; /* vertical value as  100% equals width */
+        float: left;
+      }
+
+      &_gray {
+        background-color: $keno-number-bg-set;
+      }
+
+      &_selected {
+        color: $keno-number-color-contrast;
+        background-color: $keno-number-bg-active;
+      }
+
+      &_blue {
+        background-color: $keno-number-bg-set-in-game;
+      }
+
+      &_green {
+        background-color: $keno-number-bg-win;
+      }
+    }
+  }
+
+  &__history {
+    flex: 1;
+
+    &__group-title {
+      margin-bottom: rem(15px);
+    }
+
+    &__group-list {
+      font-size: rem(14px);
+      display: flex;
+      flex-wrap: wrap;
+      text-align: center;
+
+      &__item {
+        background-color: $keno-number-history-item-bg;
+        height: rem(23px);
+        margin-right: rem(10px);
+        margin-bottom: rem(10px);
+        line-height: rem(23px);
+        border-radius: 100%;
+        width: rem(23px);
+      }
+    }
+  }
+}

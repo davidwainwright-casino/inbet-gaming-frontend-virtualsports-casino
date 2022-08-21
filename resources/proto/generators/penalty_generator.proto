@@ -1,0 +1,142 @@
+syntax = "proto2";
+
+message PenaltyConfig {
+  repeated double calc_items = 10;
+}
+
+message PenaltyBet {
+  enum Color {
+    p_color_green  = 1;
+    p_color_yellow = 2;
+  }
+
+  enum Sector {
+    p_sector_top    = 0;
+    p_sector_center = 1;
+    p_sector_bottom = 2;
+  }
+
+  required uint64 round  = 1;
+  required uint64 amount = 2;
+
+  optional int32  ball   = 3;
+  optional Sector sector = 4;
+  optional bool   miss   = 5;
+  optional bool   post   = 6;
+  optional Color  color  = 7;
+}
+
+message PenaltyHistory {
+  required uint64 round = 1;
+  optional int32  ball  = 2;
+
+  optional uint64 round_ts = 3;
+  optional uint64 video = 4;
+}
+
+message PenaltyState {
+  enum Phase {
+    p_init = 1;
+    p_bet  = 2;
+    p_play = 3;
+  }
+
+  required uint64 round    = 1;
+  optional Phase  phase    = 2 [default=p_init];
+  optional int32  ball     = 3;
+  optional uint64 video    = 4;
+
+  optional uint64 time_total     = 20;
+  optional uint64 time_left      = 21;
+  optional uint64 time_to_switch = 22;
+  optional uint64 time_started   = 24;
+}
+
+message PenaltyHistoryRequest {
+  optional uint64 from_ts    = 1;
+  optional uint64 to_ts      = 2;
+
+  optional uint64 offset     = 3 [default=0];
+  optional uint64 limit      = 4 [default=200];
+
+  optional uint64 from_round = 5;
+  optional uint64 to_round   = 6;
+}
+
+message PenaltyHistoryResponse {
+  repeated PenaltyHistory history = 1;
+}
+
+message PenaltyCashierRequest {
+  repeated PenaltyBet bets = 1;
+}
+
+message PenaltyBetResponse {
+  enum MKSlipError {
+    NO_RESULTS                      = 1;
+    INVALID_CASHIER_BALANCE         = 2;
+    UNKNOWN_RESULT_SOURCE           = 3;
+    INVALID_BET_ODD                 = 4;
+    INACTIVE_RESULT                 = 5;
+    INVALID_RESULT_STATUS           = 6;
+    AMOUNT_TOO_BIG                  = 7;
+    OUT_OF_LIMITS                   = 8;
+    NO_ENOUGH_MONEY                 = 9;
+    MYSQL_FAILED                    = 10;
+    AUTH_FAILED                     = 11;
+    DUPLICATE_TRX                   = 12;
+    EXPIRED                         = 13;
+    CLIENT_NO_CARD                  = 14;
+    CLIENT_NO_MONEY                 = 15;
+    CLIENT_NO_AUTH                  = 16;
+    CLIENT_NOT_REGISTERED           = 17;
+    CLIENT_UNKNOWN                  = 18;
+    INACTIVE_RESULT_AND_INVALID_ODD = 19;
+    DUPLICATE_EXPRESS_EVENT         = 20;
+    OUT_OF_GAME_LIMITS              = 21;
+    ACCOUNT_BLOCKED                 = 22;
+    NO_SHIFT_ID                     = 23;
+    UNKNOWN                         = 100;
+  }
+  enum Error {
+    p_br_round_missmatch     = 1;
+    p_br_amount_too_low      = 2;
+    p_br_wrong_bet_structure = 4;
+    p_br_not_betting_state   = 5;
+    p_br_mkslip_error        = 6;
+  }
+  optional bool        ok           = 1;
+  optional Error       error        = 2;
+  optional MKSlipError mkslip_error = 3;
+  optional string      slip_url     = 4;
+}
+
+message PenaltyCashierResponse {
+  optional PenaltyState       state    = 1;
+  optional PenaltyBetResponse bets     = 2;
+}
+
+
+message PenaltyStats {
+  message PenaltyStatsEntry {
+    optional uint32 miss  = 1;
+    optional uint32 post  = 2;
+    repeated uint32 balls = 3;
+  }
+  optional PenaltyStatsEntry frequencies  = 1;
+  repeated int32             top_frequent = 2;
+  repeated int32             top_rare     = 3;
+  repeated PenaltyHistory    history      = 4;
+}
+
+message PenaltyMonitor {
+  message PenaltyBetStats {
+    optional uint64 miss    = 1;
+    optional uint64 post    = 2;
+    repeated uint64 sectors = 3;
+    repeated uint64 balls   = 4;
+  }
+  optional PenaltyState    state     = 1;
+  optional PenaltyStats    stats     = 2;
+  optional PenaltyBetStats bet_stats = 3; 
+}

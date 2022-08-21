@@ -1,0 +1,116 @@
+// Стили для области воспроизведения видео
+
+.player {
+  border-radius: 5px;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  margin: rem(20px) 0;
+
+  &:before {
+    content: '';
+    display: block;
+    padding-top: 56.25%; // 16:9
+  }
+
+  // Применяется на элемент <video />
+  &-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    pointer-events: none;
+
+    &-ended {
+      opacity: 0.3;
+    }
+    &-hidden {
+      visibility: hidden;
+    }
+
+    &::-webkit-media-controls {
+      display: none;
+    }
+  }
+
+  // Слой для отобпражения кнопки для старка воспроизведения видео
+  &-play-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &:before {
+      content: '';
+      display: block;
+      border-style: solid;
+      border-color: transparent transparent transparent $white;
+      width: rem(100px);
+      height: rem(100px);
+      border-width: rem(50px 0px 50px 100px);
+      box-sizing: border-box;
+    }
+  }
+}
+
+// Слой с таймером отсчета времени и отображения состояния
+.video-timer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 3;
+
+  // Название состояния
+  &__title {
+    font-size: rem(26px);
+    width: rem(360px);
+    height: rem(54px);
+    text-align: center;
+    padding-top: rem(8px);
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    &:before {
+      display: inline-block;
+      transform: translateX(0.5px); // fix
+      content: '';
+      border-style: solid;
+      border-color: $red transparent $red transparent;
+      border-width: rem(54px 0px 0px 20px);
+    }
+
+    &-body {
+      height: rem(54px);
+      line-height: 1;
+      flex: 1;
+      background: $red;
+    }
+
+    &:after {
+      display: inline-block;
+      transform: translateX(-0.5px); // fix
+      content: '';
+      border-style: solid;
+      border-color: $red transparent transparent $red;
+      border-width: rem(27px 10px 27px 10px);
+    }
+  }
+
+  // Значение времени для таймера
+  &__value {
+    font-size: rem(26px);
+    margin-top: rem(14px);
+    text-align: center;
+  }
+}

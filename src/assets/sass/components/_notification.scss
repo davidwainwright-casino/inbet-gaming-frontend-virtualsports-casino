@@ -1,0 +1,52 @@
+// Строка уведомления для отображения сообщений
+
+.notification {
+  display: flex;
+  justify-content: stretch;
+  font-size: rem(18px);
+  padding: rem(0px 60px);
+
+  @include size1200 {
+    padding: rem(0px 20px);
+  }
+
+  float: left;
+  width: 100%;
+
+  &_green {
+    background: $notification-green-bg;
+    color: $notification-green-color;
+  }
+
+  &_red {
+    background: $notification-red-bg;
+    color: $notification-red-color;
+  }
+
+  &_orange {
+    background: $notification-orange-bg;
+    color: $notification-orange-color;
+  }
+
+  &__body {
+    flex: 1;
+    padding: rem(12px 0px);
+
+    @include size1200 {
+      padding: rem(12px 0px);
+    }
+  }
+
+  // Кнопка закрытия
+  &__close-button {
+    display: flex;
+    align-items: center;
+    width: 30px;
+    justify-content: flex-end;
+
+    @extend .font;
+    @extend .font--delete;
+    font-size: rem(18px);
+    cursor: pointer;
+  }
+}
